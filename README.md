@@ -16,5 +16,5 @@ Run `build.sh` to generate the docker image.
 
 ## Use FVP wrappers
 
-Put `$(pwd)/fvp` into your `PATH`.
+Put `$(pwd)/bin` into your `PATH`.
 Now you can run models like installed locally.
