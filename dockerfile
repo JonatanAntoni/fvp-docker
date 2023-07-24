@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-ARG FVP_VERSION=11.21
+ARG FVP_VERSION=11.22
 ARG ARTIFACTORY_URL=artifactory.eu02.arm.com
 ARG ARTIFACTORY_API_KEY
 ARG USERNAME=root
@@ -28,7 +28,10 @@ RUN --mount=type=cache,target=${ARTIFACTORY_CACHE_DIR},sharing=locked \
     mkdir -p /opt/fvp-${FVP_VERSION} && \
     tar -xf ${FVP_ARCHIVE} -C /opt/fvp-${FVP_VERSION} && \
     chown -R root:root /opt/fvp-${FVP_VERSION} && \
-    chmod 0755 /opt/fvp-${FVP_VERSION}
+    chmod 0755 /opt/fvp-${FVP_VERSION} && \
+    cd /opt/fvp-${FVP_VERSION} && \
+    for model in $(find . -name "FVP_MPS2_*"); do ln -s ${model} "VHT_${model##./FVP_}"; done && \
+    ln -s FVP_Corstone_SSE-300_Ethos-U55 VHT_Corstone_SSE-300
 
 RUN test ${USERID} -ne 0 && groupadd -g ${USERID} ${USERNAME} && useradd -r -u ${USERID} -g ${USERNAME} ${USERNAME}
 
