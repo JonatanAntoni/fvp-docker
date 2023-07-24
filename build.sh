@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-FVP_VERSION="11.21"
+FVP_VERSION="11.22"
 
 ARTIFACTORY_URL="${ARTIFACTORY_URL:-artifactory.eu02.arm.com}"
 
