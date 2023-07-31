@@ -30,7 +30,7 @@ RUN --mount=type=cache,target=${ARTIFACTORY_CACHE_DIR},sharing=locked \
     chmod 0755 /opt/fvp-${FVP_VERSION} && \
     cd /opt/fvp-${FVP_VERSION} && \
     for model in $(find . -name "FVP_MPS2_*"); do ln -s ${model} "VHT_${model##./FVP_}"; done && \
-    ln -s FVP_Corstone_SSE-300_Ethos-U55 VHT_Corstone_SSE-300
+    ln -s FVP_Corstone_SSE-300_Ethos-U55 VHT_MPS3_Corstone_SSE-300
 
 RUN test ${USERID} -ne 0 && groupadd -g ${USERID} ${USERNAME} && useradd -r -u ${USERID} -g ${USERNAME} ${USERNAME}
 
