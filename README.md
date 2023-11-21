@@ -4,15 +4,17 @@ This builds a docker wrapper around FVP models.
 
 This requires Docker to be setup and running.
 
-On Arm-Macs some settings are required to allow Docker to run `linux/amd64` containers through Rosetta, see
-https://levelup.gitconnected.com/docker-on-apple-silicon-mac-how-to-run-x86-containers-with-rosetta-2-4a679913a0d5.
+## Initialize wrapper
 
-## Build image
+Run `gen.sh` to generate the wrapper links for a specific model version.
+The version can be selected by setting `FVP_VERSION` to the full version.
 
-Export ARTIFACTORY_URL to the host name of your Artifactory server hosting the depot.
-Export ARTIFACTORY_API_KEY to contain your personal Artifactory access key.
+Available versions can be found at https://artifacts.keil.arm.com/avh/.
 
-Run `build.sh` to generate the docker image.
+## Build the image
+
+The Docker image is built automatically on first use.
+In order to pre-build the Docker image run `./build.sh` script.
 
 ## Use FVP wrappers
 

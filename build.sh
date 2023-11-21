@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
 
-FVP_VERSION="11.22"
-
-ARTIFACTORY_URL="${ARTIFACTORY_URL:-artifactory.eu02.arm.com}"
+FVP_VERSION=${FVP_VERSION:-"11.22.39"}
+FVP_ARCHIVE=${FVP_ARCHIVE:-"avh-fvp-linux-$(uname -m).tar.gz"}
+FVP_BASE_URL=${FVP_BASE_URL:-"https://artifacts.keil.arm.com/avh"}
 
 pushd "$(dirname "$0")" || exit
 
-docker build -t fvp:${FVP_VERSION} -t fvp:latest --platform linux/amd64 \
+docker build -t "fvp:${FVP_VERSION}" \
     --build-arg FVP_VERSION="${FVP_VERSION}" \
-    --build-arg ARTIFACTORY_API_KEY="${ARTIFACTORY_API_KEY}" \
-    --build-arg ARTIFACTORY_URL="${ARTIFACTORY_URL}" \
+    --build-arg FVP_ARCHIVE="${FVP_ARCHIVE}" \
+    --build-arg FVP_BASE_URL="${FVP_BASE_URL}" \
     --build-arg USERNAME="$(whoami)" \
     --build-arg USERID="$(id -u)" \
     "$@" .
-
-exit
