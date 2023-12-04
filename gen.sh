@@ -5,12 +5,39 @@ ARCH="$(uname -m)"
 FVP_VERSION=${FVP_VERSION:-"11.22.39"}
 FVP_ARCHIVE=${FVP_ARCHIVE:-"avh-fvp-linux-${ARCH}.tar.gz"}
 FVP_BASE_URL=${FVP_BASE_URL:-"https://artifacts.keil.arm.com/avh"}
+EXITCODE=0
+
+if ! which -s curl; then
+    echo "curl is missing on your system"
+    EXITCODE=1
+fi
+
+if ! which -s tar; then
+    echo "tar is missing on your system"
+    EXITCODE=1
+fi
+
+if ! which -s sha256sum; then
+    echo "sha256sum is missing on your system"
+    EXITCODE=1
+fi
+
+if ! which -s find; then
+    echo "find is missing on your system"
+    EXITCODE=1
+fi
+
+if [ $EXITCODE -gt 0 ]; then
+    echo "Some requirements are missing!"
+    exit $EXITCODE
+fi
 
 pushd "$(dirname "$0")" || exit
 
 if [ ! -f "${FVP_ARCHIVE}" ]; then
     rm -rf "${FVP_ARCHIVE%%.*}"
     find bin -type l -exec rm {} \;
+    echo "Downloading ${FVP_BASE_URL}/${FVP_VERSION}/${FVP_ARCHIVE} ..."
     curl -LO "${FVP_BASE_URL}/${FVP_VERSION}/${FVP_ARCHIVE}"
 fi
 
