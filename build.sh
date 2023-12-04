@@ -15,6 +15,14 @@ if ! docker info >/dev/null; then
     EXITCODE=1
 fi
 
+if [ ! -d ~/.armlm ]; then
+    echo "No Arm license cache found at ~/.armlm"
+    echo "Activate Arm user based license."
+    echo "The community license can be activates with:"
+    echo "armlm --server https://mdk-preview.keil.arm.com --product KEMDK-COM0"
+    EXITCODE=1
+fi 
+
 if [ $EXITCODE -gt 0 ]; then
     echo "Some requirements are missing!"
     exit $EXITCODE
